@@ -1,0 +1,175 @@
+
+#include <conio.h>
+#include <iostream>
+#define MAX 10
+#define true 1
+#define false 0
+#include <cstdlib>
+
+using namespace std;
+char stack[MAX];
+int top1, top2;
+
+void init(void);
+void push(char data, int nomorstack);
+char pop(int nomorstack);
+void clear(int nomorstack);
+int full(void);
+int empty(int nomorstack);
+void baca();
+
+main(){
+char data;
+int pilih, nomorstack;
+init();
+do{
+system("cls");
+cout<<"Contoh program double stack"<<endl;
+cout<<"\n1. Push"<<endl;
+cout<<"\n2. Pop"<<endl;
+cout<<"\n3. Clear"<<endl;
+cout<<"\n4. Baca"<<endl;
+cout<<"\n5. Selesai"<<endl;
+cout<<"\nPilihan anda  : ";
+cin>>pilih;
+switch(pilih){
+
+case 1: 
+cout<<"Push"<<endl;
+cout<<"Masukkan datanya :"; 
+cin>>data;
+cout<<"Mau dimasukkan ke stack berapa ? 1 atau 2 ? :"<<endl;
+cin>>nomorstack;
+push(data, nomorstack);
+break;
+
+case 2: 
+cout<<"Pop"<<endl;
+cout<<"Masukkan nomor stack\n"<<endl;
+cin>>nomorstack;
+data=pop(nomorstack);
+cout<<"\nData yang dikeluarkan adalah "<<data<<endl;
+break;
+
+case 3: cout<<"Clear"<<endl;
+cout<<"Nomor Stack yang akan dikosongkan "<<endl;
+cin>>nomorstack;
+clear(nomorstack);
+break;
+
+case 4: cout<<"Baca"<<endl;
+baca();
+break;
+
+case 5: cout<<"Exit"<<endl;
+break;
+default: cout<<"Pilihan yang anda masukkan tidak ada"<<endl;
+break;
+}
+
+}while(pilih!=5);
+getch();
+}
+
+
+void init(){
+top1=0;
+top2=MAX+1;
+}
+
+//PUSH
+void push(char data, int nomorstack){
+if(full()!=true){
+switch(nomorstack){
+
+case 1: top1++;
+stack[top1]=data;
+break;
+
+case 2: top2--;
+stack[top2]=data;
+break;
+default: cout<<"\nNomor stack salah"<<endl;
+break;
+}
+}
+else
+cout<<"\nStack penuh"<<endl;
+getch();
+}
+
+//POP
+char pop(int nomorstack){
+char data;
+if(empty(nomorstack)!=true){
+switch(nomorstack){
+
+case 1: data=stack[top1];
+top1--;
+return data;
+break;
+
+case 2: data=stack[top2];
+top2++;
+return data;
+break;
+default: cout<<"\nNomor stack salah"<<endl;
+break;
+}
+}
+else cout<<"\nStack masih kosong"<<endl;
+getch();
+return 0;
+}
+//cek full
+
+int full(void){
+if(top1+1>=top2){
+return true;
+}
+else return false;
+}
+
+//cek empty
+int empty(int nomorstack){
+switch(nomorstack){
+case 1: if(top1==0) return true;
+else return false;
+break;
+
+case 2: if(top2==MAX+1) return true;
+else return false;
+break;
+default: cout<<"nomor stack salah"<<endl;
+break;
+}
+}
+
+//clearing
+void clear(int nomorstack){
+switch(nomorstack){
+case 1: top1=0;
+break;
+
+case 2: top2=MAX+1;
+break;
+default: cout<<"Nomor stack salah"<<endl;
+break;
+}
+}
+
+void baca(){
+int i;
+cout<<"Baca isi stack pertama \n"<<endl;
+for(i=1; i<=top1; i++){
+cout<<stack[i]<<endl;
+cout<<"\n"<<endl;
+}
+cout<<"Isi stack kedua"<<endl;
+for(i=MAX; i>=top2; i--){
+cout<<stack[i]<<endl;
+cout<<"\n"<<endl;
+}
+
+getch();
+}

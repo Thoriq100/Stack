@@ -1,0 +1,136 @@
+ #include <iostream>
+#include <conio.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+using namespace std;
+int top=1,jalan_sehat[100];
+
+struct jalan_sehat
+{
+    char nama[50];
+    int NIP;
+    char jenis_kelamin[20];
+    char umur[15];
+    char alamat[25];
+    int telepon;
+}data[100];
+
+void masukkan()
+{
+    system("cls");
+    {
+    cout << " Masukkan Nama Peserta :";
+    cin >> data[top].nama;
+    cout << " Masukkan Nomor NIP Peserta :";
+    cin >> data[top].NIP;
+    cout << " Masukkan Jenis Kelamin Peserta :";
+    cin >> data[top].jenis_kelamin;
+    cout << " Masukkan Umur Pesereta :";
+    cin >> data[top].umur;
+    cout << " Masukkan Alamat Peserta :";
+    cin >> data[top].alamat;
+    cout << " Masukkan Nomor Telepon Peserta :";
+    cin >> data[top].telepon;
+    cout << endl;top++;
+}
+}
+
+void view(){
+    for (int i=top-1;i>=1;i--){
+        cout << endl;
+        cout << " Data Peserta Jalan Sehat Yang Telah Dimasukkan :"<<endl;
+        cout << "***************************************"<<endl;
+        cout << " Nama Peserta      \t:"<<data[i].nama<<endl;
+        cout << " Nomor NIP Peserta \t:"<<data[i].NIP<<endl;
+        cout << " Jenis Kelamin Peserta \t:"<<data[i].jenis_kelamin<<endl;
+        cout << " Umur peserta \t\t:"<<data[i].umur<<endl;
+        cout << " Alamat Peserta \t:"<<data[i].alamat<<endl;
+        cout << " Nomor Telepon Peserta \t:"<<data[i].telepon<<endl;
+    }
+}
+
+
+void hapus()
+{
+    top-=1;
+    cout << " Data Teratas Telah Di Hapus "<<endl;
+}
+
+void bersihkan ()
+{
+    if (top=1){
+
+    cout << " Stack Telah Di Kosongkan !";
+    }
+
+
+    }
+
+
+
+int main()
+{
+      int menu;
+       char ulang;
+
+      do
+      {
+            system("cls");
+            cout << "\t PROGRAM JALAN SEHAT ( STACK )\n"<<endl;
+            cout << "\t==============================\n"<<endl;
+            cout << "Menu : "<<endl;
+            cout << "1. Push / Insert stack "<<endl;
+            cout << "2. Cetak"<<endl;
+            cout << "3. Pop / Hapus stack"<<endl;
+            cout << "4. Bersihkan "<<endl;
+            cout<<"Menu pilihan Anda : ";
+            cin>>menu;
+            system("cls");
+
+        switch(menu)
+        {
+            case 1 : masukkan();
+                     break;
+
+            case 2 :{if(top<=1){
+                    cout<<"Data Kosong !"<<endl;
+                    }
+                    else{
+                                view();
+                        }
+                    }
+                    break;
+
+
+            case 3 :{if(top<=1){
+                    cout<<"Data Kosong !!!!!"<<endl;
+                    }
+                    else {
+                        hapus();
+                        }
+                    }
+                    break;
+               default : cout<<"Pilihan tidak ada !"<<endl;
+
+                           break;
+
+            case 4 :
+                 if (top=1)
+                 {
+
+
+                    bersihkan();{
+                    }
+
+    }
+break;
+}
+
+cout<<endl;
+       cout<<"Apa ingin mengulang (y/t): ";
+       cin>>ulang;}
+
+   while (ulang=='y'||ulang=='Y');
+}
+
