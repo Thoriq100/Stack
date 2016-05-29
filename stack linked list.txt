@@ -1,0 +1,185 @@
+#include<stdio.h>
+#include<malloc.h>
+#include<stdlib.h>
+#include<string.h>
+#include <iostream>
+
+using namespace std;
+struct stack{ 
+	int data;
+	struct stack *next;
+}s;
+struct stack *head=NULL,*s2=NULL;
+ 
+int empty(struct stack *head){
+	if(head==NULL)
+	 return 1;
+	else return 0;
+}
+void push(struct stack **head,int e){
+	int n;
+	struct stack *newnode,*current=*head;
+	newnode=(struct stack *)malloc(sizeof(struct stack));
+	newnode->data=e;
+	newnode->next=*head;
+	*head=newnode;
+}
+int pop(struct stack **head){
+	int d;
+	struct stack *p,*q; 
+	p=*head;
+	d=p->data;
+	*head=p->next;
+	free(p);
+	return d;
+}
+
+// find previous node function()
+struct stack* get_prevnd(
+				 struct stack* head, 
+				 struct stack* a
+				){
+	if(head == a){
+		// node[a] is first node 
+		return NULL;
+	}
+	struct stack* temp = head; // temp is current node
+	struct stack* pre_a = NULL; 
+	
+	while(temp && temp!=a){ //seach while not reach to end or 
+		pre_a = temp;          // find previous node   
+		temp = temp->next;
+	}
+	if(temp!=a){// node[a] not present in list
+		fprintf(stderr, "\n error: node not found!\n");
+		exit(EXIT_FAILURE); // bad technique to exit()
+	}
+	return pre_a;	
+}
+
+void swap(struct stack **head, 
+          struct stack **a, 
+          struct stack **b){
+  // first check if a agrgument is null                 
+	if( (*head) == NULL ||               // Empty list         
+	    (*a) == NULL || (*b) == NULL){     // one node is null  
+       // Nothing to swap, just return 
+		printf("\n Nothing to swap, just return \n");
+		return;
+  } 	
+  //printf("\nswap nodes: %d %d \n", (*a)->data, (*b)->data);
+  // find previos nodes
+  struct stack* pre_a = get_prevnd(*head, *a);
+  struct stack* pre_b = get_prevnd(*head, *b);
+	//printf("\nPrev nodes: %d %d \n", pre_a->data, pre_b->data);
+		
+  //Now swap previous node's next
+  if(pre_a) pre_a->next = (*b); // a's previous become b's previous, and 
+  if(pre_b) pre_b->next = (*a); // b's previous become a's previous
+ 
+  //Now swap next fiels of candidate nodes 	
+  struct stack* temp = NULL;  
+	temp = (*a)->next;
+  (*a)->next = (*b)->next;
+  (*b)->next = temp;
+  
+  //change head: if any node was a head 
+  if((*head)==(*a)) *head = *b;
+  if((*head)==(*b)) *head = *a;
+}
+
+main(){
+	int ar[50],j,k,temp,var,element,n,i=0;
+	struct stack *p,*q,*current;
+	struct stack *p1, *p2, *p3, *p4, *p5;
+	int kl,po,w,e,r;
+	cout<<"isi data";
+	cin>>kl;
+	cout<<"isi data";
+	cin>>po;
+	cout<<"isi data";
+	cin>>w;
+	cout<<"isi data";
+	cin>>e;
+	cout<<"isi data";
+	cin>>r;
+	
+	push(&head,kl);
+	p1 = head;
+	push(&head,po);
+	p2 = head;
+	p=head;
+	push(&head,w);
+	p3 = head;
+	push(&head,e);
+	p4 = head;
+	q=head;
+	push(&head,r);
+	p5 = head;
+
+	printf("\n Before Swap: \n");	
+	current=head;
+	while(current!=NULL){
+		printf(" %d ",current->data); 
+		current=current->next; 
+	}
+	printf("\n\n");
+	
+	cout<<"menuju ke :";
+	cin>>p1->data,p2->data,p3->data,p4->data,p5->data;
+	cout<<"data ke :";
+	cin>>p1->data,p2->data,p3->data,p4->data,p5->data;
+//	printf("\n after Swap: (%d, %d)\n", p2->data, p3->data);			
+	swap(&head,&p1, &p2);	
+	current=head;
+	while(current!=NULL){
+		printf(" %d ",current->data); 
+		current=current->next; 
+	}
+	
+	printf("\n after Swap: (%d, %d)\n", p1->data, p2->data);			
+	swap(&head, &p1, &p2);	
+	current=head;
+	while(current!=NULL){
+		printf(" %d ",current->data); 
+		current=current->next; 
+	}	
+
+	printf("\n after Swap: (%d, %d)\n", p3->data, p4->data);			
+	swap(&head, &p1, &p2);	
+	current=head;
+	while(current!=NULL){
+		printf(" %d ",current->data); 
+		current=current->next; 
+	}	
+	
+	printf("\n after Swap: (%d, %d)\n", p4->data, p2->data);			
+	swap(&head, &p4, &p2);	
+	current=head;
+	while(current!=NULL){
+		printf(" %d ",current->data); 
+		current=current->next; 
+	}	
+
+	printf("\n after Swap: (%d, %d)\n", p1->data, p3->data);			
+	swap(&head, &p1, &p3);	
+	current=head;
+	while(current!=NULL){
+		printf(" %d ",current->data); 
+		current=current->next; 
+	}
+	
+	printf("\n after Swap: (%d, %d)\n", p2->data, p5->data);			
+	swap(&head, &p2, &p5 );	
+	current=head;
+	while(current!=NULL){
+		printf(" %d ",current->data); 
+		current=current->next; 
+	}			
+
+
+
+	
+	printf("\n");
+	return EXIT_SUCCESS;
+}
